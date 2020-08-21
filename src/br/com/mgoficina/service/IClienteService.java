@@ -1,4 +1,4 @@
-package br.com.mgoficina.services;
+package br.com.mgoficina.service;
 
 import java.util.List;
 
