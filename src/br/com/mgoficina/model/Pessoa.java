@@ -2,13 +2,13 @@ package br.com.mgoficina.model;
 
 public abstract class Pessoa {
 	
-	private long id;
+	private Long id;
 	private String nome;
 	private String cpf;
 	private int idade;
 	private char sexo;
 	
-	public Pessoa(long id, String nome, String cpf, int idade, char sexo) {
+	public Pessoa(Long id, String nome, String cpf, int idade, char sexo) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -16,11 +16,11 @@ public abstract class Pessoa {
 		this.sexo = sexo;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
