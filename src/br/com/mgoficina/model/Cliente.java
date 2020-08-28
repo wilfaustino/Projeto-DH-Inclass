@@ -1,21 +1,22 @@
 package br.com.mgoficina.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Cliente extends Pessoa{
+import br.com.mgoficina.Enumerators.Sexo;
+
+public class Cliente extends Pessoa {
 	
+	private Set<Veiculo> veiculos;
 	
-	private List<Veiculo> veiculos;
-	
-	public Cliente(Long id, String nome, String cpf, int idade, char sexo,List<Veiculo> veiculo) {
+	public Cliente(Long id, String nome, String cpf, int idade, Sexo sexo) {
 		super(id, nome, cpf, idade, sexo);
-		this.veiculos = new ArrayList<>(veiculos);
 	}
 
-	public List<Veiculo> getVeiculos() {
-		return Collections.unmodifiableList(this.veiculos);
+	public Set<Veiculo> getVeiculos() {
+		return Collections.unmodifiableSet(this.veiculos);
 	}
 
 	public void addVeiculos(Veiculo veiculos) {
@@ -25,7 +26,5 @@ public class Cliente extends Pessoa{
 	public void removeVeiculos(Veiculo veiculos) {
 		this.veiculos.remove(veiculos);
 	}
-	
-	
 	
 }

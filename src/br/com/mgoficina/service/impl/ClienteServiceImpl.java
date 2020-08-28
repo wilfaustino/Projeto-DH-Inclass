@@ -1,26 +1,24 @@
 package br.com.mgoficina.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import br.com.mgoficina.model.Cliente;
 import br.com.mgoficina.service.IClienteService;
 
-public class ClienteServiceImpl implements IClienteService{
+public class ClienteServiceImpl implements IClienteService {
 
-	private List<Cliente> clientes;
-	
-	
+	private Set<Cliente> clientes;
 	
 	public ClienteServiceImpl() {
-		clientes = new ArrayList<Cliente>();
+		clientes = new TreeSet<Cliente>();
 	}
-	public ClienteServiceImpl(List<Cliente> clientes) {
-		this.clientes = new ArrayList<>(clientes);
-	} 
 	
-		
+	public ClienteServiceImpl(List<Cliente> clientes) {
+		this.clientes = new TreeSet<>(clientes);
+	} 
 	
 	@Override
 	public Cliente create(Cliente cliente) {
@@ -30,62 +28,56 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Override
 	public Cliente findClienteById(long id) {
-		Cliente retorno = null;
+		
 		for(Cliente cliente: this.clientes) {
 			if(cliente.getId() == id) {
-				retorno = cliente;
+				return cliente;
 			}
 		}
-		return retorno;
+		
+		return null;
 	}
 
 	@Override
 	public Cliente findClienteByNome(String nome) {
 		
-		Cliente retorno = null;
 		for(Cliente cliente: this.clientes) {
 			if(cliente.getNome().equals(nome)) {
-				retorno = cliente;
+				return cliente;
 			}
 		}
-		return retorno;
+		
+		return null;
 	}
 
 	@Override
-	public List<Cliente> findAll() {
-		return Collections.unmodifiableList(this.clientes);
+	public Set<Cliente> findAll() {
+		return Collections.unmodifiableSet(this.clientes);
 	}
-
+	
 	@Override
 	public boolean updateCliente(Cliente cliente) {
 		
-		boolean retorno = false;
-		int indiceDoObjeto = this.clientes.indexOf(this.findClienteById(cliente.getId()));
+		if(!this.clientes.contains(cliente))
+			return false;
 		
-		if(indiceDoObjeto > -1) {
-			this.clientes.remove(this.findClienteById(cliente.getId()));
-			this.clientes.add(indiceDoObjeto, cliente);
-			retorno = true;
-		}	
-		
-		return retorno;
-		
+		this.clientes.remove(cliente);
+		this.clientes.add(cliente);
+					
+		return true;
 	}
 
 	@Override
-	public boolean deleteCliente(long id) {
-		boolean retorno = false;
-		int indiceDoObjeto = this.clientes.indexOf(this.findClienteById(id));
+	public boolean deleteClienteByID(long id) {
 		
-		if(indiceDoObjeto > -1) {
-			this.clientes.remove(this.findClienteById(id));
-			retorno = true;
-		}	
+		for(Cliente cliente: this.clientes) {
+			if(cliente.getId() == id) {
+				this.clientes.remove(cliente);
+				return true;
+			}
+		}
 		
-		return retorno;
-		
+		return false;
 	}
-	
-	
 	
 }

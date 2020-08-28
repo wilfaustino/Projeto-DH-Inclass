@@ -1,14 +1,22 @@
 package br.com.mgoficina.model;
 
+import br.com.mgoficina.Enumerators.Sexo;
+import br.com.mgoficina.exceptions.NomeClienteErradoException;
+
 public abstract class Pessoa {
 	
-	private Long id;
+	private long id;
 	private String nome;
 	private String cpf;
 	private int idade;
-	private char sexo;
+	private Sexo sexo;
 	
-	public Pessoa(Long id, String nome, String cpf, int idade, char sexo) {
+	public Pessoa(Long id, String nome, String cpf, int idade, Sexo sexo) throws NomeClienteErradoException {
+		
+		if(nome.trim().length() == 0) {
+			throw new NomeClienteErradoException("Nome do cliente está errado!");
+		}
+		
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -48,11 +56,11 @@ public abstract class Pessoa {
 		this.idade = idade;
 	}
 
-	public char getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 	
